@@ -398,8 +398,6 @@ By following these steps, you can effectively deploy and manage Windows Server 2
    - **--url:** Specifies the URL of the Fleet server to which the agent should connect.
    - **--enrollment-token:** Provides the enrollment token required to securely connect the agent to the Fleet server.
 
-### Summary:
-
 These commands download and install the Elastic Agent on a Windows Server, connecting it to your Fleet management server in Elastic Cloud. By setting the `$ProgressPreference` variable, the script runs quietly without showing download progress, and the `Invoke-WebRequest`, `Expand-Archive`, and `cd` commands ensure the agent is properly downloaded, extracted, and installed. The final command connects the agent to the Fleet server using the provided URL and enrollment token, completing the setup.
 
 
@@ -610,8 +608,6 @@ By integrating Sysmon with Fleet and Elastic Stack, you can achieve a powerful, 
    - Save the integration settings and deploy the updated agent policy.
    - The Elastic Agents will start collecting the specified logs and metrics according to the policy.
 
-### Summary
-
 **Fleet Agent Policy** allows you to manage data collection configurations for Elastic Agents centrally. Adding **Windows Integration** involves specifying event log channels (like Sysmon, PowerShell, AppLocker), performance metrics, and third-party API log collection. This setup ensures comprehensive monitoring and visibility into the performance, security, and operational aspects of your Windows systems.
 
 
@@ -711,8 +707,6 @@ When you choose additional fields like `agent.type`, `cloud.machine.type`, `clou
     - **Information:** The username of the user who triggered the event.
     - **Usage:** Critical for user activity monitoring and detecting unauthorized access.
 
-### Summary
-
 By leveraging the **Elastic Cloud Analytics Discover** tool and selecting relevant fields, you can gain deep insights into your system's activities. Filtering data to focus on specific datasets like `windows.sysmon_operational` and adding integrations help in managing and analyzing detailed logs from Sysmon and other sources. This comprehensive approach aids in security monitoring, incident response, and overall system management.
 
 
@@ -790,8 +784,6 @@ By utilizing these dashboards, you can gain a comprehensive understanding of you
 6. **Security Monitoring:**
    - Monitor logs and events for potential security incidents, such as unauthorized access attempts or unusual process behavior.
 
-### Summary
-
 The **Metrics Windows Services Dashboard** and **System Windows Overview Dashboard** in Elastic Cloud provide essential insights into the performance, health, and status of your Windows systems and services. By leveraging these dashboards, you can effectively monitor resource usage, ensure service reliability, troubleshoot issues, and maintain a secure and efficient IT environment.
 
 
@@ -852,8 +844,6 @@ The **Metrics Windows Services Dashboard** and **System Windows Overview Dashboa
 5. **Scalability and Flexibility:**
    - Scales with your infrastructure, handling large volumes of data across distributed environments.
    - Offers customizable dashboards and queries to tailor the monitoring experience to your specific needs.
-
-### Summary
 
 The **Elastic Observability Overview** dashboard offers a powerful and comprehensive solution for monitoring the health, performance, and operational status of your infrastructure. By providing real-time metrics on CPU, memory, disk usage, and network traffic, along with detailed process and host metadata, it enables you to gain valuable insights, troubleshoot issues efficiently, and ensure the smooth operation of your systems and applications.
 
@@ -926,8 +916,5 @@ The **Elastic Observability Overview** dashboard offers a powerful and comprehen
 6. **Scalability and Flexibility:**
    - Scales to handle large volumes of security data across distributed environments, ensuring continuous monitoring and analysis.
 
-### Summary
-
 The **Elastic Security Overview and Explore** components provide a comprehensive solution for monitoring and investigating security events across users, networks, and hosts. By aggregating and analyzing security data from various sources, these components enable organizations to detect and respond to security threats effectively, ensuring the protection of their assets and data.
-
 
