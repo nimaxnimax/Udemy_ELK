@@ -572,3 +572,40 @@ If your output shows 0 total hits, Elasticsearch is not loading any logs under t
 
 **********
 
+
+Remember that this is a basic setup to get you started. Depending on your requirements and environment, you might need to adjust configurations, add security, and handle high availability for the ELK stack.
+
+
+Step 5 — Exploring Kibana Dashboards
+
+Let’s return to the Kibana web interface that we installed earlier.
+
+In a web browser, go to the FQDN or public IP address of your Elastic Stack server. Once you have logged in, you should receive the Kibana homepage.
+
+Access via Browser
+
+http://kibana-server-ip:5601
+
+
+```bash
+ip addr | grep inet
+```
+
+
+Click the Discover link in the left-hand navigation bar (you may have to click the the Expand icon at the very bottom left to see the navigation menu items). On the Discover page, select the predefined filebeat-* index pattern to see Filebeat data. By default, this will show you all of the log data over the last 15 minutes. You will see a histogram with log events, and some log messages.
+
+
+Here, you can search and browse through your logs and also customize your dashboard. At this point, though, there won’t be much in there because you are only gathering syslogs from your Elastic Stack server.
+
+
+Use the left-hand panel to navigate to the Dashboard page and search for the Filebeat System dashboards. Once there, you can select the sample dashboards that come with Filebeat’s system module.
+
+
+For example, you can view detailed stats based on your syslog messages.
+
+
+You can also view which users have used the sudo command and when.
+
+
+**********
+
