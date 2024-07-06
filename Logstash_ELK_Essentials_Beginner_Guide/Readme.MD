@@ -75,25 +75,35 @@ All of the packages are signed with the Elasticsearch signing key in order to pr
 
 To begin, use cURL, the command line tool for transferring data with URLs, to import the Elasticsearch public GPG key into APT. Note that we are using the arguments -fsSL to silence all progress and possible errors (except for a server failure) and to allow cURL to make a request on a new location if redirected. Pipe the output of the curl command to the gpg --dearmor command, which converts the key into a format that apt can use to verify downloaded packages.
 
+```bash
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch |sudo gpg --dearmor -o /usr/share/keyrings/elastic.gpg
+```
 
 Next, add the Elastic source list to the sources.list.d directory, where APT will search for new sources:
 
+```bash
 echo "deb [signed-by=/usr/share/keyrings/elastic.gpg] https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+```
 
 The [signed-by=/usr/share/keyrings/elastic.gpg] portion of the file instructs apt to use the key that you downloaded to verify repository and file information for Elasticsearch packages.
 
 Next, update your package lists so APT will read the new Elastic source:
 
-sudo apt update
+```bash
+sudo apt update -y
+```
 
 Then install Elasticsearch with this command:
 
-sudo apt install elasticsearch
+```bash
+sudo apt install elasticsearch -y
+```
 
 Elasticsearch is now installed and ready to be configured. Use your preferred text editor to edit Elasticsearch’s main configuration file, elasticsearch.yml. Here, we’ll use nano:
 
+```bash
 sudo nano /etc/elasticsearch/elasticsearch.yml
+```
 
 Note: Elasticsearch’s configuration file is in YAML format, which means that we need to maintain the indentation format. Be sure that you do not add any extra spaces as you edit this file.
 
@@ -101,6 +111,7 @@ The elasticsearch.yml file provides configuration options for your cluster, node
 
 Elasticsearch listens for traffic from everywhere on port 9200. You will want to restrict outside access to your Elasticsearch instance to prevent outsiders from reading your data or shutting down your Elasticsearch cluster through its [REST API]. To restrict access and therefore increase security, find the line that specifies network.host, uncomment it, and replace its value with localhost like this:
 
+```bash
 /etc/elasticsearch/elasticsearch.yml
 . . .
 # ---------------------------------- Network -----------------------------------
@@ -109,6 +120,7 @@ Elasticsearch listens for traffic from everywhere on port 9200. You will want to
 #
 network.host: localhost
 . . .
+```
 
 We have specified localhost so that Elasticsearch listens on all interfaces and bound IPs. If you want it to listen only on a specific interface, you can specify its IP in place of localhost. Save and close elasticsearch.yml. If you’re using nano, you can do so by pressing CTRL+X, followed by Y and then ENTER .
 
@@ -116,18 +128,25 @@ These are the minimum settings you can start with in order to use Elasticsearch.
 
 Start the Elasticsearch service with systemctl. Give Elasticsearch a few moments to start up. Otherwise, you may get errors about not being able to connect.
 
+```bash
 sudo systemctl start elasticsearch
+```
 
 Next, run the following command to enable Elasticsearch to start up every time your server boots:
 
+```bash
 sudo systemctl enable elasticsearch
+```
 
 You can test whether your Elasticsearch service is running by sending an HTTP request:
 
+```bash
 curl -X GET "localhost:9200"
+```
 
 You will see a response showing some basic information about your local node, similar to this:
 
+```bash
 Output
 {
   "name" : "Elasticsearch",
@@ -146,6 +165,7 @@ Output
   },
   "tagline" : "You Know, for Search"
 }
+```
 
 Now that Elasticsearch is up and running, let’s install Kibana, the next component of the Elastic Stack.
 
