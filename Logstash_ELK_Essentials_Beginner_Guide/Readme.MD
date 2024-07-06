@@ -177,6 +177,8 @@ Now that Elasticsearch is up and running, let’s install Kibana, the next compo
 
 You can check all information related to this course on github.com and for more information about the tips tricks notes commands and everything check the github url link and the repository that I show you. 
 
+Tips/Tricks/Notes/Commands URL Link: https://github.com/nimaxnimax/Udemy_ELK.git
+
 
 Step 2 — Installing and Configuring the Kibana Dashboard
 
