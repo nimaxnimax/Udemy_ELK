@@ -260,3 +260,99 @@ sudo service kibana restart
 
 **********
 
+
+Step 3 — Installing and Configuring Logstash
+
+Although it’s possible for Beats to send data directly to the Elasticsearch database, it is common to use Logstash to process the data. This will allow you more flexibility to collect data from different sources, transform it into a common format, and export it to another database.
+
+
+Install Logstash with this command:
+
+```bash
+sudo apt install logstash -y
+```
+
+
+After installing Logstash, you can move on to configuring it. Logstash’s configuration files reside in the /etc/logstash/conf.d directory. For more information on the configuration syntax, you can check out the configuration reference that Elastic provides. As you configure the file, it’s helpful to think of Logstash as a pipeline which takes in data at one end, processes it in one way or another, and sends it out to its destination (in this case, the destination being Elasticsearch). A Logstash pipeline has two required elements, input and output, and one optional element, filter. The input plugins consume data from a source, the filter plugins process the data, and the output plugins write the data to a destination.
+
+https://www.elastic.co/guide/en/logstash/current/configuration-file-structure.html
+
+
+![alt text](logstash_pipeline_updated.png)
+
+
+Create a configuration file called 02-beats-input.conf where you will set up your Filebeat input:
+
+```bash
+sudo nano /etc/logstash/conf.d/02-beats-input.conf
+```
+
+
+Insert the following input configuration. This specifies a beats input that will listen on TCP port 5044.
+
+```bash
+input {
+  beats {
+    port => 5044
+  }
+}
+```
+
+Save and close the file.
+
+
+Next, create a configuration file called 30-elasticsearch-output.conf:
+
+```bash
+sudo nano /etc/logstash/conf.d/30-elasticsearch-output.conf
+```
+
+
+Insert the following output configuration. Essentially, this output configures Logstash to store the Beats data in Elasticsearch, which is running at localhost:9200, in an index named after the Beat used. The Beat used in this tutorial is Filebeat:
+
+```bash
+output {
+  if [@metadata][pipeline] {
+	elasticsearch {
+  	hosts => ["localhost:9200"]
+  	manage_template => false
+  	index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+  	pipeline => "%{[@metadata][pipeline]}"
+	}
+  } else {
+	elasticsearch {
+  	hosts => ["localhost:9200"]
+  	manage_template => false
+  	index => "%{[@metadata][beat]}-%{[@metadata][version]}-%{+YYYY.MM.dd}"
+	}
+  }
+}
+```
+
+Save and close the file.
+
+
+Test your Logstash configuration with this command:
+
+```bash
+sudo -u logstash /usr/share/logstash/bin/logstash --path.settings /etc/logstash -t
+```
+
+If there are no syntax errors, your output will display Config Validation Result: OK. Exiting Logstash after a few seconds. If you don’t see this in your output, check for any errors noted in your output and update your configuration to correct them. Note that you will receive warnings from OpenJDK, but they should not cause any problems and can be ignored.
+
+
+If your configuration test is successful, start and enable Logstash to put the configuration changes into effect:
+
+```bash
+sudo systemctl start logstash
+```
+
+```bash
+sudo systemctl enable logstash
+```
+
+Now that Logstash is running correctly and is fully configured, let’s install Filebeat.
+
+
+**********
+
