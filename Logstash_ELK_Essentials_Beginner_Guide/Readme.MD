@@ -278,7 +278,7 @@ After installing Logstash, you can move on to configuring it. Logstash’s confi
 https://www.elastic.co/guide/en/logstash/current/configuration-file-structure.html
 
 
-![alt text](logstash_pipeline_updated.png)
+![alt text](image.png)
 
 
 Create a configuration file called 02-beats-input.conf where you will set up your Filebeat input:
