@@ -174,3 +174,87 @@ Now that Elasticsearch is up and running, let’s install Kibana, the next compo
 
 **********
 
+
+You can check all information related to this course on github.com and for more information about the tips tricks notes commands and everything check the github url link and the repository that I show you. 
+
+
+Step 2 — Installing and Configuring the Kibana Dashboard
+
+According to the official documentation, you should install Kibana only after installing Elasticsearch. Installing in this order ensures that the components each product depends on are correctly in place.
+
+Because you’ve already added the Elastic package source in the previous step, you can just install the remaining components of the Elastic Stack using apt:
+
+```bash
+sudo apt install kibana -y
+```
+
+
+Then enable and start the Kibana service:
+
+```bash
+sudo systemctl enable kibana
+```
+
+```bash
+sudo systemctl start kibana
+
+```
+
+
+If you’re unsure about the correct service name, you can list available services:
+
+```bash
+sudo service --status-all
+```
+
+
+Check Systemd Status:
+
+```bash
+systemctl status kibana
+```
+
+
+If it’s not recognized, you might need to reload the systemd daemon or manually enable the service:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+```bash
+sudo systemctl enable kibana
+
+```
+
+
+Check Kibana Configuration:
+
+Verify that Kibana is configured to listen on all network interfaces (0.0.0.0) so that it can accept connections from external machines. Open the Kibana configuration file (/etc/kibana/kibana.yml) and ensure that the server.host option is set to:
+
+```bash
+sudo nano /etc/kibana/kibana.yml
+```
+
+```bash
+server.host: "0.0.0.0"
+```
+
+
+Verify Elasticsearch Connection:
+
+Kibana requires a functional connection to Elasticsearch. Ensure that Elasticsearch is running and properly configured. Verify that the Elasticsearch URL is correctly set in the Kibana configuration file (/etc/kibana/kibana.yml):
+
+```bash
+elasticsearch.hosts: ["http://localhost:9200"]
+```
+
+
+After making changes, restart the Kibana service:
+
+```bash
+sudo service kibana restart
+```
+
+
+**********
+
