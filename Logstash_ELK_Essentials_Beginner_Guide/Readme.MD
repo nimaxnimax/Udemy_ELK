@@ -362,10 +362,15 @@ Step 4 — Installing and Configuring Filebeat
 The Elastic Stack uses several lightweight data shippers called Beats to collect data from various sources and transport them to Logstash or Elasticsearch. Here are the Beats that are currently available from Elastic:
 
 Filebeat: collects and ships log files.
+
 Metricbeat: collects metrics from your systems and services.
+
 Packetbeat: collects and analyzes network data.
+
 Winlogbeat: collects Windows event logs.
+
 Auditbeat: collects Linux audit framework data and monitors file integrity.
+
 Heartbeat: monitors services for their availability with active probing.
 
 
